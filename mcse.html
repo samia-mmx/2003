@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+<head>
+ 
+<meta charset="utf-8" />
+ 
+<title></title>
+ 
+ </head>
+ 
+ <body>
+ 
+ </body>
+ 
+<script type="text/javascript">
+ 
+//首先设置行，列
+ 
+var cols = 3; //６列
+ 
+var rows = 30; //６行
+var stimuli_response = new Array();
+var ops = new Array('undefined','A', 'B', 'NP');
+// modify
+var wav_root = new Array("mcse_006_lpc10_test\\", "mcsse_006_lpc10_test\\");
+ 
+var htmlstr = "<table border='1px'>";
+
+var th_st1 = "<td>" + "<audio controls=\"\" style=\"width: 50px;\">" + "<source src=\"";
+var th_st2 = "\" type=\"audio/mpeg\">" + "Your browser does not support the audio element." + "</audio>" + "</td>";
+
+var th_sl0 = "<th>" + "<select onchange=\"add_words_dd(this.options[this.options.selectedIndex].value)\">";
+//var th_sl1 = th_sl0 + "<option value=\""
+//var th_sl11 = ",0\" selected>0</option>"
+var th_sl1 = th_sl0;
+var th_sl2 = "<option value=\"";
+var th_sl3 = "\">";
+var th_sl4 = "</option>";
+var th_sl5 = "</select>" + "</th>";
+
+ 
+for(i = 0; i < rows; i++) {
+  si = i.toString().padStart(4, '0');
+  wav_name = wav_root[0] + si + ".wav"
+  htmlstr += "<tr>";
+  th_st3 = "<td>" + si + "</td>"
+  htmlstr += th_st3
+  htmlstr += th_st1;
+  htmlstr += wav_name;
+  htmlstr += th_st2;
+  htmlstr += th_sl0;
+  for(j=0; j<=3; j++)
+  {
+    op = ops[j];
+    htmlstr += th_sl2 + si + "," + op;
+    htmlstr += th_sl3 + op + th_sl4;
+  }
+  htmlstr += th_sl5;
+
+  htmlstr += th_st1;
+  htmlstr += wav_root[1] + si + ".wav";
+  htmlstr += th_st2;
+
+  htmlstr += "</tr>";
+ 
+}
+
+htmlstr += "</table>";
+
+htmlstr += "<input type=\"button\" onClick=\"ShowResult()\">Click Me!</input>";
+ 
+document.write(htmlstr);
+
+for(i = 1; i <= rows; i++) {
+  si = i.toString().padStart(4, '0');
+  stimuli_response[si] = "indefined";
+}
+
+
+function add_words_dd(value){
+  data=value.split(",");
+  stimuli_response[data[0]]=data[1];
+}
+
+
+
+function ShowResult() {
+    nwin = window.open("", "Newwindow","width=280,height=480");
+    nwin.document.open();
+    nwin.document.write("<HTML><HEAD>");
+    nwin.document.write("<TITLE>New one</TITLE>");
+    nwin.document.writeln("<BODY>");
+    //for (i = 1; i <= stimuli_response.length; i++) {
+    for (var key in stimuli_response) {
+        //nwin.document.write('111');
+        //si = i.toString().padStart(4, '0');
+        //nwin.document.write(si + " : " + stimuli_response[si] + "<br>");
+        //if (stimuli_response[key] == "0" or stimuli_response[key] == 0) {
+        //  stimuli_response[key] = "undefined";
+        //}
+        nwin.document.write(key + " : " + stimuli_response[key] + "<br>");
+    }
+    nwin.document.write("</BODY></HTML>");
+    nwin.document.close();
+}
+
+function show(){
+    document.write("ssssss33d");
+  }
+
+document.write("ssss");
+
+
+</script>
+ 
+</html>
