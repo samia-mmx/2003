@@ -1,0 +1,16 @@
+#支持多说话人，如果只有一个说话人，则可以当作单说话人来用。
+1. 预处理
+直接执行python preprocess.py 
+需要注意的是: 需要新建一个数据文件夹，里面放每个说话人的数据就可以。
+这里我们只有一个说话人，所以我们新建了en_dataset里面只放了LJSPEECH数据
+preprocess.py 里的：
+parser.add_argument('--dataset', default='en_dataset')
+按照自己新建的名称修改
+hparams.py 里面的
+anchor_dirs = ['LJSpeech-1.1'] 有几个说话人里面写几个
+2.训练
+bash scripts/train_tacotron2.sh
+里面同样可以修改 LJSpeech-1.1 改为所包含的所有说话人
+与GST相关的参数在这里hparams_gst.py
+3.测试
+scripts/griffin_lim_synth.sh
